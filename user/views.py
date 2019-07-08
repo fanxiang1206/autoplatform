@@ -9,7 +9,7 @@ def login(request):
     if request.method =='GET':
         return render(request, 'login.html')
     else:
-        username = request.POST.get("username","")
+        username = request.POST.get("username", "")
         password = request.POST.get("password", "")
 
         user = auth.authenticate(username=username, password=password)

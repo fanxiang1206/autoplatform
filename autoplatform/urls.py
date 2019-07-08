@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from user import views as user_views
 from project import views as project_views
-from model import views as model_views
+from module import views as module_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,6 +30,6 @@ urlpatterns = [
     path('project_list/', project_views.project_list),
 
     #模块
-    path('model_list/', model_views.model_list),
+    path('module_list/', module_views.module_list),
 
 ]

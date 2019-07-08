@@ -29,7 +29,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="active"><a href="/project_list/"><i class="glyphicon glyphicon-th-large"></i>&nbsp;&nbsp;项目管理</a></li>
-            <li><a href="/model_list/"><i class="glyphicon glyphicon-signal"></i>&nbsp;&nbsp;模块管理</a></li>
+            <li><a href="/module_list/"><i class="glyphicon glyphicon-signal"></i>&nbsp;&nbsp;模块管理</a></li>
           </ul>
           <ul class="nav nav-sidebar">
             <li><a href="/case_list/"><i class="glyphicon glyphicon-file"></i>&nbsp;&nbsp;用例管理</a></li>
@@ -41,33 +41,34 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">项目列表</h2>
+          <h2 class="sub-header">项目列表<button type="button" class="btn btn-sm btn-primary" style="float: right">创建</button></h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>编号</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
+                  <th>项目ID</th>
+                  <th>名称</th>
+                  <th>描述</th>
+                  <th>状态</th>
+                  <th>创建时间</th>
                 </tr>
               </thead>
               <tbody>
+              {% for project in projects %}
                 <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
+                  <td>{{ project.id }}</td>
+                  <td>{{ project.name }}</td>
+                  <td>{{ project.describe }}</td>
+                  <td>
+                      {% if project.status == 1 %}
+                        <span>开启</span>
+                      {% else %}
+                        <span>关闭</span>
+                      {% endif%}
+                  </td>
+                  <td>{{ project.creattime  | date:"Y-m-d H:i:s"}}</td>
                 </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
+               {% endfor %}
               </tbody>
             </table>
           </div>
