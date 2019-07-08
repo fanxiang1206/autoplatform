@@ -5,4 +5,4 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def module_list(request):
-    return render(request,'module_list.html')
+    return render(request, 'module.html')

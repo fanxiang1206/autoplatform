@@ -28,6 +28,9 @@ urlpatterns = [
     path('logout/', user_views.logout),
     #项目
     path('project_list/', project_views.project_list),
+    path('project_add/', project_views.project_add),
+    path('project_update/<int:pid>/', project_views.project_update),
+    path('project_delete/<int:pid>/', project_views.project_delete),
 
     #模块
     path('module_list/', module_views.module_list),
