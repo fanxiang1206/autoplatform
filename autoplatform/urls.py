@@ -19,8 +19,14 @@ from user import views as user_views
 from project import views as project_views
 from module import views as module_views
 
+from jsdemo import views as js_views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #jquery学习
+    path('js/', js_views.jisuan),
+    path('js_demo/', js_views.js_demo),
+
     # 登录
     path('login/', user_views.login),
     path('', user_views.login),

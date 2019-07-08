@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery学习</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<form>
+    num1:    <input type="text" id="num1" value=""><br>
+    num2:    <input type="text" id="num2" value=""><br>
+    result:  <input type="text" id="result" value=""><br>
+    <button type="submit" onclick="add()">计算</button><br>
+    <span id="msg"></span>
+</form>
+
+<script>
+    function add() {
+        $.ajax({
+            type:"POST",
+            url:'/js/',
+            data:{
+                num1:$("#num1").val(),
+                num2:$("#num2").val()
+            },
+            success:function (result) {
+                $("#result").val(result['sum']);
+                $("#msg").html(result['msg'])
+
+            }
+        });
+
+    };
+</script>
+</body>
+</html>
