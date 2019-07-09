@@ -8,6 +8,5 @@ class Project(models.Model):
     status = models.BooleanField("状态",default=1)
     creattime = models.DateTimeField("创建时间",auto_now_add=True)
 
-
     def __str__(self):
         return self.name
