@@ -40,5 +40,9 @@ urlpatterns = [
 
     #模块
     path('module_list/', module_views.module_list),
+    path('module_add/', module_views.module_add),
+    path('module_update/<int:pid>/', module_views.module_update),
+    path('module_delete/<int:pid>/', module_views.module_delete),
+
 
 ]

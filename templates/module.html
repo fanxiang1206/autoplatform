@@ -40,39 +40,114 @@
             <li><a href="/tools_list/"><i class="glyphicon glyphicon-bishop"></i>&nbsp;&nbsp;测试工具</a></li>
           </ul>
         </div>
+        {% if type == "list" %}
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">模块列表</h2>
+          <h2 class="sub-header">模块列表<button type="button" class="btn btn-sm btn-primary" style="float: right" onclick="location.href='/module_add/'" >创建</button></h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>编号</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
+                  <th>模块ID</th>
+                  <th>名称</th>
+                  <th>描述</th>
+                  <th>所属项目</th>
+                  <th>创建时间</th>
+                    <th>编辑</th>
                 </tr>
               </thead>
               <tbody>
+              {% for module in modules %}
                 <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
+                  <td>{{ module.id }}</td>
+                  <td>{{ module.name }}</td>
+                  <td>{{ module.describe }}</td>
+                  <td>{{ module.project }}</td>
+                  <td>{{ module.creattime  | date:"Y-m-d H:i:s"}}</td>
+                  <td>
+                      <a href="/module_update/{{ module.id }}">编辑</a>
+                      <a href="/module_delete/{{ module.id }}">删除</a>
+                  </td>
                 </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
+               {% endfor %}
               </tbody>
             </table>
           </div>
           </div>
         </div>
+        {% endif %}
+
+        {% if type == "add" %}
+         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h2 class="sub-header">新增模块</h2>
+             <form action="/module_add/" method="post">
+                 {% csrf_token %}
+                 <table>
+                     <tr>
+                     <td><b>项目：  </b></td>
+                      <td>
+                          <select name="project_id">
+                              {% for project in projects %}
+                              <option value ={{ project.id }}>{{ project.name }}</option>
+                              {% endfor %}
+                          </select>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td><b>名称：</b></td>
+                      <td><input type="text" name="name" /></td>
+                  </tr>
+                  <tr>
+                     <td><b>描述：</b></td>
+                     <td>
+                      <input type="text" name="describe" /></td>
+                  </tr>
+
+                  <tr>
+                  <td colspan="2" align="center"><input type="submit" value="提交"/>     <input type="reset" value="重置"/></td>
+                  </tr>
+                </table>
+             </form>
+         </div>
+        {% endif %}
+
+         {% if type == "update" %}
+         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h2 class="sub-header">编辑模块</h2>
+             <form action="/module_update/{{ module.id }}/" method="post">
+                 {% csrf_token %}
+                 <table>
+                      <tr>
+                     <td><b>项目：  </b></td>
+                      <td>
+                          <select name="project_id">
+                              {% for project in projects %}
+                                  {% if project == module.project %}
+                                      <option value ={{ project.id }} selected>{{ project.name }}</option>
+                                  {% else %}
+                                      <option value ={{ project.id }}>{{ project.name }}</option>
+                                  {% endif %}
+                              {% endfor %}
+                          </select>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td><b>名称：</b></td>
+                      <td><input type="text" name="name" value="{{ module.name }}"/></td>
+                  </tr>
+                  <tr>
+                     <td><b>描述：</b></td>
+                     <td>
+                      <input type="text" name="describe"  value="{{ module.describe }}"/></td>
+                  </tr>
+                  <tr>
+                  <td colspan="2" align="center"><input type="submit" value="提交"/>     <input type="reset" value="重置"/></td>
+                  </tr>
+                </table>
+             </form>
+         </div>
+        {% endif %}
+
+
       </div>
     </div>
 {% endblock %}
