@@ -13,29 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path,include
-from user import views
 
-from jsdemo import views as js_views
+from django.urls import path
+from case import views
+
 
 urlpatterns = [
 
-    path('admin/', admin.site.urls),
-    # jquery学习
-    path('js/', js_views.jisuan),
-    path('js_demo/', js_views.js_demo),
+    path('debug/', views.debug),
+    path('list/', views.list),
+    path('add/', views.add),
 
-    # 登录
-    path('login/', views.login),
-    path('', views.login),
-    path('accounts/login/', views.login),
-    path('logout/', views.logout),
-    # 项目
-    path('project/', include('project.urls')),
-    # 模块
-    path('module/', include('module.urls')),
-    # 用例
-    path('case/', include('case.urls')),
+
 
 ]
