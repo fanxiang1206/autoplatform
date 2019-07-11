@@ -7,14 +7,14 @@ from django.http import HttpResponseRedirect
 
 
 @login_required
-def module_list(request):
+def list(request):
 
     modules = Module.objects.all()
     return render(request, 'module.html', {"modules":modules,"type":"list"})
 
 
 @login_required
-def module_add(request):
+def add(request):
 
     if request.method == "GET":
         projects = Project.objects.all()
@@ -26,11 +26,11 @@ def module_add(request):
 
         Module.objects.create(name=name,describe=describe,project_id=project_id)
 
-        return HttpResponseRedirect('/module_list/')
+        return HttpResponseRedirect('/module/list/')
 
 
 @login_required
-def module_update(request,pid):
+def update(request,pid):
 
     if request.method == "GET":
         module = Module.objects.get(id=pid)
@@ -47,13 +47,13 @@ def module_update(request,pid):
         p.describe = describe
         p.project_id = project_id
         p.save()
-        return HttpResponseRedirect('/module_list/')
+        return HttpResponseRedirect('/module/list/')
 
     return
 
 
 @login_required
-def module_delete(request,pid):
+def delete(request,pid):
 
     Module.objects.get(id=pid).delete()
-    return HttpResponseRedirect('/module_list/')
+    return HttpResponseRedirect('/module/list/')

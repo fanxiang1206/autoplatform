@@ -15,7 +15,7 @@ def login(request):
         user = auth.authenticate(username=username, password=password)
         if user:
             auth.login(request, user)
-            return HttpResponseRedirect('/project_list/')
+            return HttpResponseRedirect('/project/list/')
         else:
             context = {
                 "msg": "用户名或者密码不正确！！！"

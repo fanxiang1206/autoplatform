@@ -28,21 +28,21 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="/project_list/"><i class="glyphicon glyphicon-th-large"></i>&nbsp;&nbsp;项目管理</a></li>
-            <li><a href="/module_list/"><i class="glyphicon glyphicon-signal"></i>&nbsp;&nbsp;模块管理</a></li>
+            <li class="active"><a href="/project/list/"><i class="glyphicon glyphicon-th-large"></i>&nbsp;&nbsp;项目管理</a></li>
+            <li><a href="/module/list/"><i class="glyphicon glyphicon-signal"></i>&nbsp;&nbsp;模块管理</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="/case_list/"><i class="glyphicon glyphicon-file"></i>&nbsp;&nbsp;用例管理</a></li>
-            <li><a href="/task_list/"><i class="glyphicon glyphicon-tags"></i>&nbsp;&nbsp;任务管理</a></li>
+            <li><a href="/case/list/"><i class="glyphicon glyphicon-file"></i>&nbsp;&nbsp;用例管理</a></li>
+            <li><a href="/task/list/"><i class="glyphicon glyphicon-tags"></i>&nbsp;&nbsp;任务管理</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="/mock_list/"><i class="glyphicon glyphicon-refresh"></i>&nbsp;&nbsp;Mock Server</a></li>
-            <li><a href="/tools_list/"><i class="glyphicon glyphicon-bishop"></i>&nbsp;&nbsp;测试工具</a></li>
+            <li><a href="/mock/list/"><i class="glyphicon glyphicon-refresh"></i>&nbsp;&nbsp;Mock Server</a></li>
+            <li><a href="/tools/list/"><i class="glyphicon glyphicon-bishop"></i>&nbsp;&nbsp;测试工具</a></li>
           </ul>
         </div>
         {% if type == "list" %}
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">项目列表<button type="button" class="btn btn-sm btn-primary" style="float: right" onclick="location.href='/project_add/'" >创建</button></h2>
+          <h2 class="sub-header">项目列表<button type="button" class="btn btn-sm btn-primary" style="float: right" onclick="location.href='/project/add/'" >创建</button></h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -70,8 +70,8 @@
                   </td>
                   <td>{{ project.creattime  | date:"Y-m-d H:i:s"}}</td>
                   <td>
-                      <a href="/project_update/{{ project.id }}">编辑</a>
-                      <a href="/project_delete/{{ project.id }}">删除</a>
+                      <a href="/project/update/{{ project.id }}">编辑</a>
+                      <a href="/project/delete/{{ project.id }}">删除</a>
                   </td>
                 </tr>
                {% endfor %}
@@ -85,7 +85,7 @@
         {% if type == "add" %}
          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h2 class="sub-header">新增项目</h2>
-             <form action="/project_add/" method="post">
+             <form action="/project/add/" method="post">
                  {% csrf_token %}
                  <table>
                   <tr>
@@ -115,7 +115,7 @@
          {% if type == "update" %}
          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h2 class="sub-header">编辑项目</h2>
-             <form action="/project_update/{{ project.id }}/" method="post">
+             <form action="/project/update/{{ project.id }}/" method="post">
                  {% csrf_token %}
                  <table>
                   <tr>
