@@ -1,4 +1,6 @@
-   function debug() {
+
+    //实现接口用例的调试
+    function debug() {
         var reg_url = $("#reg_url").val();
         var req_method = $('input:radio[name="req_method"]:checked').val();
         var reg_header =$("#reg_header").val();
@@ -30,7 +32,7 @@
 
     };
 
-
+    //实现断言
     function req_assert() {
         var req_assert_type = $('input:radio[name="req_assert_type"]:checked').val();
         var req_assert_param =$("#req_assert_param").val();
@@ -65,6 +67,7 @@
 
     };
 
+    //实现2级联动
     function queryModule() {
 
 
@@ -74,7 +77,7 @@
 
             $("#req_module").empty()
 
-            $("#req_module").append("<option value='请选择'>请选择</option>");
+            $("#req_module").append("<option value=''>请选择</option>");
 
             return;
         }
@@ -91,7 +94,7 @@
 
                 $("#req_module").empty()
 
-                $("#req_module").append("<option value='请选择'>请选择</option>");
+                $("#req_module").append("<option value=''>请选择</option>");
 
                 Object.keys(res).forEach(function (key) {
                     $("#req_module").append("<option value='"+key+"'>"+res[key]+"</option>");
@@ -101,6 +104,24 @@
 
             }
         });
+
+
+    }
+    //保存测试用例
+    function save(){
+
+        var project_id = $("#req_project option:selected").val();
+        var module_id  = $("#req_module option:selected").val();
+
+        if(project_id == ""){
+            alert("用例所属项目不能为空！！！")
+            return;
+        }
+
+        if(module_id == ""){
+            alert("用例所属模块不能为空！！！")
+            return;
+        }
 
 
     }

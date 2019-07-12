@@ -19,9 +19,9 @@ def list(request):
 def add(request):
 
     projects = Project.objects.all()
-    modules = Module.objects.all()
 
     return render(request,'case.html',{"type":"add","projects":projects})
+
 
 @login_required
 def queryModule(request):
