@@ -1,25 +1,26 @@
 from django.shortcuts import render
 from case.httpclient import httpclient
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse,HttpResponse
 import json
 
 # Create your views here.
-
+@login_required
 def list(request):
 
     pass
 
     return render(request,'case.html',{"type":"list"})
 
-
+@login_required
 def add(request):
 
     pass
 
     return render(request,'case.html',{"type":"add"})
 
-
+@login_required
 @csrf_exempt
 def debug(request):
 
@@ -44,7 +45,12 @@ def debug(request):
 
         client.set_params(json.loads(reg_param))
 
-    client.send()
+    try:
+        client.send()
+    except Exception as e:
+        print("异常信息为：",str(e))
+        return HttpResponse(str(e))
+
 
     # print(client.res.json())
 
