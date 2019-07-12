@@ -64,3 +64,23 @@
         });
 
     };
+
+    function queryModule() {
+
+        var req_project = $("#req_project option:selected").val();
+
+        $.ajax({
+            type:"GET",
+            url:'/case/queryModule/',
+            data:{
+                req_project:req_project
+            },
+            success:function (result) {
+
+                alert(result)
+
+            }
+        });
+
+
+    }
