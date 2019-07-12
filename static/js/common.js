@@ -1,4 +1,4 @@
-    function debug() {
+   function debug() {
         var reg_url = $("#reg_url").val();
         var req_method = $('input:radio[name="req_method"]:checked').val();
         var reg_header =$("#reg_header").val();

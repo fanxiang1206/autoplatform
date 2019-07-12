@@ -4,6 +4,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse,HttpResponse
 import json
+from project.models import Project
+from module.models import Module
 
 # Create your views here.
 @login_required
@@ -16,9 +18,10 @@ def list(request):
 @login_required
 def add(request):
 
-    pass
+    projects = Project.objects.all()
+    modules = Module.objects.all()
 
-    return render(request,'case.html',{"type":"add"})
+    return render(request,'case.html',{"type":"add","projects":projects})
 
 @login_required
 @csrf_exempt

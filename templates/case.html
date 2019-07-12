@@ -146,6 +146,9 @@
            </div>
 
 
+         <div class="input-group" style="margin-top: 20px;">
+              <button type="button" class="btn btn-sm btn-primary" style="margin-right: 50px;" onclick="debug()" >发送</button>
+          </div>
 
 
              <div class="radio">
@@ -165,12 +168,30 @@
            </div>
 
          <div class="input-group" style="margin-top: 20px;">
-              <button type="button" class="btn btn-sm btn-primary" style="margin-right: 50px;" onclick="debug()" >发送</button>
-              <button type="button" class="btn btn-sm btn-primary" style="margin-right: 50px;">保存</button>
               <button type="button" class="btn btn-sm btn-primary" onclick="req_assert()" >断言</button>
           </div>
 
+             <div class="input-group" style="margin-top: 20px;">
 
+                 <label> 项目：</label>
+                   <select name="req_project" id="req_project" style="width: 150px;margin-right: 50px" onchange="queryModule()">
+                       <option value="请选择">请选择</option>
+                       {% for project in projects %}
+                        <option value ={{ project.id }}>{{ project.name }}</option>
+                       {% endfor %}
+                   </select>
+
+                 <label> 模块：</label>
+                   <select name="project" style="width: 150px">
+                     <option value ="请选择">请选择</option>
+                   </select>
+
+             </div>
+
+
+         <div class="input-group" style="margin-top: 20px;">
+              <button type="button" class="btn btn-sm btn-primary" style="margin-right: 50px;">保存</button>
+          </div>
          </div>
         {% endif %}
 
@@ -179,6 +200,30 @@
       </div>
     </div>
 
+    <script>
+
+    function queryModule() {
+
+        var req_project = $("#req_project option:selected").val();
+
+        $.ajax({
+            type:"GET",
+            url:'/case/queryModule/',
+            data:{
+                req_project:req_project
+            },
+            success:function (result) {
+
+                alert(result)
+
+            }
+        });
+
+
+
+    }
+
+    </script>
 
 
 
