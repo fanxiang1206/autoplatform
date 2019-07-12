@@ -24,6 +24,19 @@ def add(request):
     return render(request,'case.html',{"type":"add","projects":projects})
 
 @login_required
+def queryModule(request):
+
+    module_list = {}
+    req_project = request.GET.get("req_project","")
+    modules = Module.objects.filter(project_id=req_project)
+    for module in modules:
+        module_list[module.id] = module.name
+
+    return HttpResponse(json.dumps(module_list))
+
+
+
+@login_required
 @csrf_exempt
 def debug(request):
 

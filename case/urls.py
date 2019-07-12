@@ -24,6 +24,7 @@ urlpatterns = [
     path('req_assert/', views.req_assert),
     path('list/', views.list),
     path('add/', views.add),
+    path('queryModule/', views.queryModule),
 
 
 

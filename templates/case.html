@@ -175,14 +175,14 @@
 
                  <label> 项目：</label>
                    <select name="req_project" id="req_project" style="width: 150px;margin-right: 50px" onchange="queryModule()">
-                       <option value="请选择">请选择</option>
+                       <option value="">请选择</option>
                        {% for project in projects %}
                         <option value ={{ project.id }}>{{ project.name }}</option>
                        {% endfor %}
                    </select>
 
                  <label> 模块：</label>
-                   <select name="project" style="width: 150px">
+                   <select name="req_module" id="req_module" style="width: 150px">
                      <option value ="请选择">请选择</option>
                    </select>
 

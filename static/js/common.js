@@ -67,7 +67,17 @@
 
     function queryModule() {
 
+
         var req_project = $("#req_project option:selected").val();
+
+        if(req_project == ""){
+
+            $("#req_module").empty()
+
+            $("#req_module").append("<option value='请选择'>请选择</option>");
+
+            return;
+        }
 
         $.ajax({
             type:"GET",
@@ -77,7 +87,17 @@
             },
             success:function (result) {
 
-                alert(result)
+                var res = JSON.parse(result)
+
+                $("#req_module").empty()
+
+                $("#req_module").append("<option value='请选择'>请选择</option>");
+
+                Object.keys(res).forEach(function (key) {
+                    $("#req_module").append("<option value='"+key+"'>"+res[key]+"</option>");
+                    
+                })
+
 
             }
         });
