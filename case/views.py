@@ -8,6 +8,8 @@ from project.models import Project
 from module.models import Module
 
 # Create your views here.
+
+#case列表查询
 @login_required
 def list(request):
 
@@ -15,6 +17,7 @@ def list(request):
 
     return render(request,'case.html',{"type":"list"})
 
+#添加测试用例
 @login_required
 def add(request):
 
@@ -22,7 +25,7 @@ def add(request):
 
     return render(request,'case.html',{"type":"add","projects":projects})
 
-
+#根据项目id查询下属模块
 @login_required
 def queryModule(request):
 
@@ -35,7 +38,7 @@ def queryModule(request):
     return HttpResponse(json.dumps(module_list))
 
 
-
+#调试和发送测试用例请求
 @login_required
 @csrf_exempt
 def debug(request):
@@ -74,7 +77,7 @@ def debug(request):
 
     return HttpResponse(str(client.res.json()))
 
-
+#测试用例断言
 @login_required
 @csrf_exempt
 def req_assert(request):
