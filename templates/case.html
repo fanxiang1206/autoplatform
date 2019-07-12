@@ -118,7 +118,7 @@
              </div>
 
          <div class="input-group">
-            <span class="input-group-addon">headers:</span>
+            <span class="input-group-addon">Headers:</span>
             <input type="text" name="reg_header" id="reg_header" class="form-control" placeholder="格式为字典类型，例如：{key1:value1,key2:value2}">
            </div>
 
@@ -164,11 +164,17 @@
 
     <script>
     function debug() {
-        var reg_url = $("#reg_url").val()
-        var req_method = $('input:radio[name="req_method"]:checked').val()
-        var reg_header =$("#reg_header").val()
-        var req_type =$('input:radio[name="req_type"]:checked').val()
-        var reg_param =$("#reg_param").val()
+        var reg_url = $("#reg_url").val();
+        var req_method = $('input:radio[name="req_method"]:checked').val();
+        var reg_header =$("#reg_header").val();
+        var req_type =$('input:radio[name="req_type"]:checked').val();
+        var reg_param =$("#reg_param").val();
+
+        if(reg_url == ""){
+            alert("请求的url不能为空！")
+            $("#reg_url").focus()
+            return;
+        }
 
         $.ajax({
             type:"POST",
@@ -181,11 +187,8 @@
                 reg_param:reg_param
             },
             success:function (result) {
-                {#obj = eval('(' + result + ')');#}
-                {#res = obj.toJSONString()#}
-                {#alert(res['data']);#}
-                {#$("#req_result").val(res['data'])#}
 
+                $("#req_result").val(result);
 
             }
         });
