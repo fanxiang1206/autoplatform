@@ -110,18 +110,26 @@
     //保存测试用例
     function save(){
 
-        var project_id = $("#req_project option:selected").val();
-        var module_id  = $("#req_module option:selected").val();
+        var req_project = $("#req_project option:selected").val();
+        var req_module  = $("#req_module option:selected").val();
+        var req_name    = $("#req_name").val();
 
-        if(project_id == ""){
+        if(req_name == ""){
+            alert("用例名称不能为空！！！")
+            $("#reg_name").focus()
+            return;
+        }
+
+        if(req_project == ""){
             alert("用例所属项目不能为空！！！")
             return;
         }
 
-        if(module_id == ""){
+        if(req_module == ""){
             alert("用例所属模块不能为空！！！")
             return;
         }
+
 
 
     }

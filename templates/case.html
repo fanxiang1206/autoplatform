@@ -95,10 +95,17 @@
          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
              <h2 class="sub-header">新增测试用例</h2>
 
-           <div class="input-group">
+           <div class="input-group" style="margin-top: 20px">
+            <span class="input-group-addon">用例名称</span>
+            <input type="text" name="req_name" id="req_name" class="form-control" placeholder="请输入用例名称">
+           </div>
+
+
+         <div class="input-group" style="margin-top: 20px">
             <span class="input-group-addon">请求URL:</span>
             <input type="text" name="reg_url" id="reg_url" class="form-control" placeholder="请输入请求的URL">
            </div>
+
 
              <div class="radio">
                  <span>请求方法:</span>
@@ -183,7 +190,7 @@
 
                  <label> 模块：</label>
                    <select name="req_module" id="req_module" style="width: 150px">
-                     <option value ="">请选择</option>
+                     <option value ="请选择">请选择</option>
                    </select>
 
              </div>

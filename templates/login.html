@@ -7,11 +7,11 @@
            {% csrf_token %}
         <h2 class="form-signin-heading">接口测试平台</h2>
         <label for="inputEmail" class="sr-only">用户名</label>
-        <input type="text" id="inputUsername" name="username"class="form-control" placeholder="请输入用户名" required autofocus>
+        <input style="margin-top: 20px" type="text" id="inputUsername" name="username"class="form-control" placeholder="请输入用户名" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="请输入密码" required>
+        <input style="margin-top: 20px" type="password" id="inputPassword" name="password" class="form-control" placeholder="请输入密码" required>
           <div style="color: red">{{ msg }}</div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+        <button style="margin-top: 20px" class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
       </form>
 
     </div> <!-- /container -->
