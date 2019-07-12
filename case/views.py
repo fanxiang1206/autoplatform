@@ -57,3 +57,41 @@ def debug(request):
     # {"x-qp-appid": "21001", "x-qp-gid": "1", "x-qp-userid": "1"}
 
     return HttpResponse(str(client.res.json()))
+
+
+@login_required
+@csrf_exempt
+def req_assert(request):
+
+    req_assert_type = request.POST.get("req_assert_type","")
+    req_assert_param = request.POST.get("req_assert_param","")
+    req_result = request.POST.get("req_result","")
+
+    if req_assert_param == "":
+
+        return HttpResponse("预期结果不能为空！！！")
+
+    if req_result == "":
+
+        return HttpResponse("实际结果不能为空！！！")
+
+    if req_assert_type == "contains":
+
+        if req_assert_param in req_result:
+
+            return HttpResponse("断言成功！！！")
+        else:
+
+            return HttpResponse("断言失败！！！")
+
+    elif req_assert_type == "equals":
+
+        if req_assert_param == req_result:
+
+            return HttpResponse("断言成功！！！")
+        else:
+
+            return HttpResponse("断言失败！！！")
+    else:
+
+        return HttpResponse("断言类型错误,错误的类型为："+req_assert_type)

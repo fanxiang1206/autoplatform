@@ -146,12 +146,29 @@
            </div>
 
 
-          <div class="input-group" style="margin-top: 20px;">
+
+
+             <div class="radio">
+                 <span>断言类型:</span>
+                <label>
+                    <input type="radio" name="req_assert_type" id="req_assert_type" value="contains"  checked>包含
+                </label>
+                 <label>
+                    <input type="radio" name="req_assert_type" id="req_assert_type" value="equals" >等于
+                </label>
+             </div>
+
+
+          <div class="input-group">
+            <span class="input-group-addon">断言参数: </span>
+            <input type="text" name="req_assert_param" id="req_assert_param"  class="form-control" placeholder="请输入需要断言预期结果">
+           </div>
+
+         <div class="input-group" style="margin-top: 20px;">
               <button type="button" class="btn btn-sm btn-primary" style="margin-right: 50px;" onclick="debug()" >发送</button>
-              <button type="button" class="btn btn-sm btn-primary"  onclick="" >保存</button>
+              <button type="button" class="btn btn-sm btn-primary" style="margin-right: 50px;">保存</button>
+              <button type="button" class="btn btn-sm btn-primary" onclick="req_assert()" >断言</button>
           </div>
-
-
 
 
          </div>
@@ -194,6 +211,42 @@
         });
 
     };
+
+
+    function req_assert() {
+        var req_assert_type = $('input:radio[name="req_assert_type"]:checked').val();
+        var req_assert_param =$("#req_assert_param").val();
+        var req_result =$("#req_result").val();
+
+        if(req_assert_param == ""){
+            alert("断言的预期结果不能为空！")
+            $("#req_assert_param").focus()
+            return;
+        }
+
+        if(req_result == ""){
+            alert("断言的实际结果不能为空！")
+            $("#req_result").focus()
+            return;
+        }
+
+        $.ajax({
+            type:"POST",
+            url:'/case/req_assert/',
+            data:{
+                req_assert_type:req_assert_type,
+                req_assert_param:req_assert_param,
+                req_result:req_result,
+            },
+            success:function (result) {
+
+                alert(result)
+
+            }
+        });
+
+    };
+
     </script>
 
 
