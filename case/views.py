@@ -6,6 +6,7 @@ from django.http import JsonResponse,HttpResponse
 import json
 from project.models import Project
 from module.models import Module
+from case.models import Case
 
 # Create your views here.
 
@@ -13,9 +14,11 @@ from module.models import Module
 @login_required
 def list(request):
 
-    pass
+    cases = Case.objects.all()
 
-    return render(request,'case.html',{"type":"list"})
+    modules = Module.objects.all()
+
+    return render(request,'case.html',{"modules":modules,"cases":cases,"type":"list"})
 
 #添加测试用例
 @login_required
@@ -114,3 +117,42 @@ def req_assert(request):
     else:
 
         return HttpResponse("断言类型错误,错误的类型为："+req_assert_type)
+
+
+#保存测试用例
+@login_required
+@csrf_exempt
+def save(request):
+
+    msg = "用例保存成功！！！"
+
+    req_name = request.POST.get("req_name","")
+    reg_url = request.POST.get("reg_url","")
+    req_method = request.POST.get("req_method","")
+    reg_header = request.POST.get("reg_header","")
+    req_type = request.POST.get("req_type","")
+    reg_param = request.POST.get("reg_param","")
+    req_assert_type = request.POST.get("req_assert_type","")
+    req_assert_param = request.POST.get("req_assert_param","")
+    req_module = request.POST.get("req_module","")
+
+    try:
+        Case.objects.create(name=req_name,
+                            url=reg_url,
+                            method=req_method,
+                            header=reg_header,
+                            param_type=req_type,
+                            params=reg_param,
+                            assert_type=req_assert_type,
+                            assert_params=req_assert_param,
+                            module_id=req_module)
+    except Exception as e:
+
+        print("异常信息为：",str(e))
+        msg = "用例保存失败，失败原因为{error}".format(str(e))
+
+
+    return JsonResponse({
+        "msg":msg
+    })
+

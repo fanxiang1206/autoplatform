@@ -47,44 +47,37 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>用例ID</th>
+                  <th>ID</th>
                   <th>名称</th>
-                  <th>描述</th>
-                  <th>状态</th>
-                    <th>所属项目</th>
-                  <th>所属模块 </th>
+                  <th>所属项目</th>
+                  <th>所属模块</th>
                   <th>创建时间</th>
                     <th>编辑</th>
                 </tr>
               </thead>
               <tbody>
-              <td>2222</td>
-              <td>33333</td>
-              <td>44354</td>
-              <td>354353</td>
-              <td>6546456</td>
-              <td>5464554</td>
-              <td>5465464</td>
-              <td>4234234</td>
 
+              {% for case in cases %}
+                <tr>
+                  <td>{{ case.id }}</td>
+                  <td>{{ case.name }}</td>
+                  <td>
+                      {% for module in modules%}
+                       {% if case.module == module %}
+                            {{ module.project }}
+                       {% endif %}
+                      {% endfor %}
+                  </td>
+                    <td>{{ case.module }}</td>
+                  <td>{{ case.creattime  | date:"Y-m-d H:i:s"}}</td>
+                  <td>
+                      <a href="/case/update/{{ case.id }}">编辑</a>
+                      <a href="/case/delete/{{ case.id }}">删除</a>
+                  </td>
+                </tr>
+               {% endfor %}
+              </tbody>
 
-{#              {% for case in cases %}#}
-{#                <tr>#}
-{#                  <td>{{ case.id }}</td>#}
-{#                  <td>{{ case.name }}</td>#}
-{#                  <td>{{ case.describe }}</td>#}
-{#                    <td>{{ case.status }}</td>#}
-{#                    <td>{{ case.project }}</td>#}
-{#                  <td>{{ case.module }}</td>#}
-{#                  <td>{{ case.creattime  | date:"Y-m-d H:i:s"}}</td>#}
-{#                  <td>#}
-{#                      <a href="/case/update/{{ case.id }}">编辑</a>#}
-{#                      <a href="/case/delete/{{ case.id }}">删除</a>#}
-{#                  </td>#}
-{#                </tr>#}
-{#               {% endfor %}#}
-{#              </tbody>#}
-{#            #}
             </table>
           </div>
           </div>

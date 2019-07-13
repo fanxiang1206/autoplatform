@@ -25,6 +25,7 @@ urlpatterns = [
     path('list/', views.list),
     path('add/', views.add),
     path('queryModule/', views.queryModule),
+    path('save/', views.save),
 
 
 
