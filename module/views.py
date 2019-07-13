@@ -49,7 +49,6 @@ def update(request,pid):
         p.save()
         return HttpResponseRedirect('/module/list/')
 
-    return
 
 
 @login_required

@@ -161,3 +161,62 @@
 
 
     }
+
+
+
+    //update测试用例
+    function update(){
+
+        var req_id      = $("#req_id").val();
+        var req_name      = $("#req_name").val();
+        var reg_url       = $("#reg_url").val();
+        var req_method    = $('input:radio[name="req_method"]:checked').val();
+        var reg_header    = $("#reg_header").val();
+        var req_type      = $('input:radio[name="req_type"]:checked').val();
+        var reg_param     = $("#reg_param").val();
+        var req_assert_type    = $('input:radio[name="req_assert_type"]:checked').val();
+        var req_assert_param    = $("#req_assert_param").val();
+        var req_project = $("#req_project option:selected").val();
+        var req_module  = $("#req_module option:selected").val();
+
+        if(req_name == ""){
+            alert("用例名称不能为空！！！")
+            $("#reg_name").focus()
+            return;
+        }
+
+        if(req_project == ""){
+            alert("用例所属项目不能为空！！！")
+            return;
+        }
+
+        if(req_module == ""){
+            alert("用例所属模块不能为空！！！")
+            return;
+        }
+
+
+        $.ajax({
+            type:"POST",
+            url:'/case/update/',
+            data:{
+                req_id:req_id,
+                req_name:req_name,
+                reg_url:reg_url,
+                req_method:req_method,
+                reg_header:reg_header,
+                req_type:req_type,
+                reg_param:reg_param,
+                req_assert_type:req_assert_type,
+                req_assert_param:req_assert_param,
+                req_module:req_module
+            },
+            success:function (result) {
+
+                alert(result["msg"])
+
+            }
+        });
+
+
+    }

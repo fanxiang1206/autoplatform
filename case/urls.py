@@ -26,8 +26,9 @@ urlpatterns = [
     path('add/', views.add),
     path('queryModule/', views.queryModule),
     path('save/', views.save),
-    path('update/<int:pid>/', views.update),
+    path('queryCase/<int:pid>/', views.queryCase),
     path('delete/<int:pid>/', views.delete),
+    path('update/', views.update),
 
 
 ]

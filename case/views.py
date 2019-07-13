@@ -165,3 +165,74 @@ def delete(request,pid):
     Case.objects.get(id=pid).delete()
 
     return HttpResponseRedirect('/case/list/')
+
+#查询测试用例
+@login_required
+def queryCase(request,pid):
+
+    if request.method == "GET":
+
+        projects = Project.objects.all()
+
+        case = Case.objects.get(id=pid)
+
+        if case:
+
+            module = Module.objects.get(id=case.module_id)
+
+            if module:
+
+                project_single = Project.objects.get(id=module.project_id)
+
+                modules = Module.objects.filter(project=project_single)
+
+                return render(request, 'case.html',{"modules":modules,
+                                                    "project_single":project_single,
+                                                    "case": case,
+                                                    "type":"update",
+                                                    "projects":projects
+                                                    })
+
+
+
+#编辑测试用例
+@login_required
+@csrf_exempt
+def update(request):
+
+    msg = "用例编辑成功！！！"
+
+    req_id = request.POST.get("req_id", "")
+    req_name = request.POST.get("req_name", "")
+    reg_url = request.POST.get("reg_url", "")
+    req_method = request.POST.get("req_method", "")
+    reg_header = request.POST.get("reg_header", "")
+    req_type = request.POST.get("req_type", "")
+    reg_param = request.POST.get("reg_param", "")
+    req_assert_type = request.POST.get("req_assert_type", "")
+    req_assert_param = request.POST.get("req_assert_param", "")
+    req_module = request.POST.get("req_module", "")
+
+
+    try:
+
+        case = Case.objects.get(id=req_id)
+        case.name = req_name
+        case.url = reg_url
+        case.method = req_method
+        case.header = reg_header
+        case.param_type = req_type
+        case.params = reg_param
+        case.assert_type = req_assert_type
+        case.assert_params = req_assert_param
+        case.module_id = req_module
+        case.save()
+
+    except Exception as e:
+
+        print("异常信息为：", str(e))
+        msg = "编辑用例失败，失败原因为{error}".format(str(e))
+
+    return JsonResponse({
+        "msg": msg
+    })

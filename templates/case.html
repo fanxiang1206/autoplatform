@@ -71,7 +71,7 @@
                     <td>{{ case.module }}</td>
                   <td>{{ case.creattime  | date:"Y-m-d H:i:s"}}</td>
                   <td>
-                      <a href="/case/update/{{ case.id }}">编辑</a>
+                      <a href="/case/queryCase/{{ case.id }}">编辑</a>
                       <a href="/case/delete/{{ case.id }}">删除</a>
                   </td>
                 </tr>
@@ -108,13 +108,6 @@
                  <label>
                     <input type="radio" name="req_method" id="req_method" value="POST" >POST
                 </label>
-                 <label>
-                    <input type="radio" name="req_method" id="req_method" value="PUT" >PUT
-                </label>
-                 <label>
-                    <input type="radio" name="req_method" id="req_method" value="DELETE" >DELETE
-                </label>
-
              </div>
 
          <div class="input-group">
@@ -195,6 +188,151 @@
          </div>
         {% endif %}
 
+        {% if type == "update" %}
+         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+             <h2 class="sub-header">编辑测试用例</h2>
+
+           <div class="input-group" style="margin-top: 20px">
+            <span class="input-group-addon">用例名称</span>
+            <input type="text" value="{{ case.name }}" name="req_name" id="req_name" class="form-control" placeholder="请输入用例名称">
+           <input type="hidden" id="req_id" value="{{ case.id }}">
+           </div>
+
+
+         <div class="input-group" style="margin-top: 20px">
+            <span class="input-group-addon">请求URL:</span>
+            <input type="text" value="{{ case.url }}" name="reg_url" id="reg_url" class="form-control" placeholder="请输入请求的URL">
+           </div>
+
+
+             <div class="radio">
+                 <span>请求方法:</span>
+                {% if case.param_type == 'GET' %}
+                    <label>
+                        <input type="radio" name="req_method" id="req_method" value="GET"  checked>GET
+                    </label>
+                     <label>
+                        <input type="radio" name="req_method" id="req_method" value="POST" >POST
+                    </label>
+                {% else %}
+                    <label>
+                        <input type="radio" name="req_method" id="req_method" value="GET">GET
+                    </label>
+                     <label>
+                        <input type="radio" name="req_method" id="req_method" value="POST" checked>POST
+                    </label>
+                {% endif %}
+
+
+             </div>
+
+         <div class="input-group">
+            <span class="input-group-addon">Headers:</span>
+            <input type="text" name="reg_header" id="reg_header" value="{{ case.header }}" class="form-control" placeholder="格式为字典类型，例如：{key1:value1,key2:value2}">
+           </div>
+
+         <div class="radio">
+                 <span>参数类型:</span>
+
+             {% if case.param_type == 'urlencoded' %}
+                <label>
+                    <input type="radio" name="req_type" id="req_type" value="urlencoded"  checked>urlencoded
+                </label>
+                 <label>
+                    <input type="radio" name="req_type" id="req_type" value="json" >json
+                </label>
+            {% else %}
+                  <label>
+                    <input type="radio" name="req_type" id="req_type" value="urlencoded">urlencoded
+                </label>
+                 <label>
+                    <input type="radio" name="req_type" id="req_type" value="json" checked>json
+                </label>
+            {% endif %}
+             </div>
+
+
+          <div class="input-group">
+            <span class="input-group-addon">Params: </span>
+            <input type="text" name="reg_param" value="{{ case.params }}" id="reg_param"  class="form-control" placeholder="格式为字典类型，例如：{key1:value1,key2:value2}">
+           </div>
+
+
+          <div class="input-group" style="margin-top: 20px;height: 200px;">
+            <span class="input-group-addon">返回结果:</span>
+              <textarea class="form-control" style="height: 200px;" name="req_result" id="req_result"></textarea>
+           </div>
+
+
+         <div class="input-group" style="margin-top: 20px;">
+              <button type="button" class="btn btn-sm btn-primary" style="margin-right: 50px;" onclick="debug()" >发送</button>
+          </div>
+
+             <div class="radio">
+                 <span>断言类型:</span>
+                 {% if case.assert_type == 'contains' %}
+                    <label>
+                        <input type="radio" name="req_assert_type" id="req_assert_type" value="contains"  checked>包含
+                    </label>
+                     <label>
+                        <input type="radio" name="req_assert_type" id="req_assert_type" value="equals" >等于
+                    </label>
+                 {% else %}
+
+                    <label>
+                        <input type="radio" name="req_assert_type" id="req_assert_type" value="contains">包含
+                    </label>
+                     <label>
+                        <input type="radio" name="req_assert_type" id="req_assert_type" value="equals" checked>等于
+                    </label>
+
+                 {% endif %}
+             </div>
+
+
+          <div class="input-group">
+            <span class="input-group-addon">断言参数: </span>
+            <input type="text" name="req_assert_param" id="req_assert_param"  value="{{ case.assert_params }}" class="form-control" placeholder="请输入需要断言预期结果">
+           </div>
+
+         <div class="input-group" style="margin-top: 20px;">
+              <button type="button" class="btn btn-sm btn-primary" onclick="req_assert()" >断言</button>
+          </div>
+
+             <div class="input-group" style="margin-top: 20px;">
+
+                 <label> 项目：</label>
+                   <select name="req_project" id="req_project" style="width: 150px;margin-right: 50px" onchange="queryModule()">
+                       <option value="">请选择</option>
+                       {% for project in projects %}
+                           {% if project == project_single %}
+                                <option value ={{ project.id }} selected>{{ project.name }}</option>
+                           {% else %}
+                               <option value ={{ project.id }}>{{ project.name }}</option>
+                           {% endif %}
+                       {% endfor %}
+                   </select>
+
+                 <label> 模块：</label>
+                   <select name="req_module" id="req_module" style="width: 150px">
+                     <option value="">请选择</option>
+                       {% for module in modules %}
+                           {% if module == case.module %}
+                                <option value ={{ module.id }} selected>{{ module.name }}</option>
+                           {% else %}
+                               <option value ={{ module.id }}>{{ module.name }}</option>
+                           {% endif %}
+                       {% endfor %}
+                   </select>
+
+             </div>
+
+
+         <div class="input-group" style="margin-top: 20px;">
+              <button type="button" class="btn btn-sm btn-primary" style="margin-right: 50px;" onclick="update()">保存</button>
+          </div>
+         </div>
+        {% endif %}
 
 
       </div>
