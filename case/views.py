@@ -2,7 +2,7 @@ from django.shortcuts import render
 from case.httpclient import httpclient
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse,HttpResponse
+from django.http import JsonResponse,HttpResponse,HttpResponseRedirect
 import json
 from project.models import Project
 from module.models import Module
@@ -156,3 +156,12 @@ def save(request):
         "msg":msg
     })
 
+
+
+#删除测试用例
+@login_required
+def delete(request,pid):
+
+    Case.objects.get(id=pid).delete()
+
+    return HttpResponseRedirect('/case/list/')
