@@ -79,9 +79,30 @@
               </tbody>
 
             </table>
+           {#分页显示#}
+            <div style="float: right">
+
+                <ul id="pagination-flickr">
+                {% if cases.has_previous %}
+                <span class="previous"><a href="?page={{ cases.previous_page_number }}{% if request.GET.year %}&year={{ request.GET.year }}{% endif %}{% if request.GET.month %}&month={{ request.GET.month }}{% endif %}{% if request.GET.cid %}&cid={{ request.GET.cid }}{% endif %}">&laquo;上一页</a></span>
+                {% else %}
+                <span class="previous-off">&laquo;上一页</span>
+                {% endif %}
+
+                 <span class="active">{{ cases.number }}/{{ cases.paginator.num_pages }}</span>
+                {% if cases.has_next %}
+                  <span class="next"><a href="?page={{ cases.next_page_number }}{% if request.GET.year %}&year={{ request.GET.year }}{% endif %}{% if request.GET.month %}&month={{ request.GET.month }}{% endif %}{% if request.GET.cid %}&cid={{ request.GET.cid }}{% endif %}">下一页 &raquo;</a></span>
+                {% else %}
+                  <span class="next-off">下一页 &raquo;</span>
+                {% endif %}
+               </ul>
+            </div>
           </div>
           </div>
         </div>
+
+
+
         {% endif %}
 
         {% if type == "add" %}
@@ -336,6 +357,9 @@
 
 
       </div>
+
+
+
     </div>
 
     <script>

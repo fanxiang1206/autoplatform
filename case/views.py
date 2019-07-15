@@ -3,6 +3,7 @@ from case.httpclient import httpclient
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse,HttpResponse,HttpResponseRedirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import json
 from project.models import Project
 from module.models import Module
@@ -14,9 +15,26 @@ from case.models import Case
 @login_required
 def list(request):
 
-    cases = Case.objects.all()
-
     modules = Module.objects.all()
+
+    cases_list = Case.objects.all()
+
+    paginator = Paginator(cases_list, 5)
+
+    page = request.GET.get('page')
+
+    try:
+
+        cases = paginator.page(page)  # contacts为Page对象！
+
+    except PageNotAnInteger:
+
+        cases = paginator.page(1)
+
+    except EmptyPage:
+
+        cases = paginator.page(paginator.num_pages)
+
 
     return render(request,'case.html',{"modules":modules,"cases":cases,"type":"list"})
 
